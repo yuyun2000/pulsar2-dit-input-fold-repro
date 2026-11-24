@@ -1,0 +1,4 @@
+assets/*.onnx
+assets/*.onnx.data
+assets/*.axmodel
+out/
