@@ -42,6 +42,11 @@ Download the large assets from the release:
 
 ```bash
 gh release download v1 -R yuyun2000/pulsar2-dit-input-fold-repro -D assets
+# or direct URLs:
+# https://github.com/yuyun2000/pulsar2-dit-input-fold-repro/releases/download/v1/dit_p11.onnx
+# https://github.com/yuyun2000/pulsar2-dit-input-fold-repro/releases/download/v1/dit_p11.onnx.data
+# https://github.com/yuyun2000/pulsar2-dit-input-fold-repro/releases/download/v1/dit_p8.onnx
+# https://github.com/yuyun2000/pulsar2-dit-input-fold-repro/releases/download/v1/dit_p8.onnx.data
 ```
 
 ## Reproduce
