@@ -38,8 +38,19 @@ def cfg(n):
     }
 
 
+U16_OPS = ["Add","Concat","Conv","Cos","Div","Erf","Gemm","Greater","LayerNormalization",
+           "MatMul","Mul","Neg","Pow","ReduceL2","ReduceMean","Reshape","Sigmoid","Sin",
+           "Slice","Softmax","Softplus","Split","Squeeze","Tanh","Transpose","Unsqueeze","Where"]
+
 os.makedirs(f"{base}/out", exist_ok=True)
 for n in (8, 11):
+    c = cfg(n)
     with open(f"{base}/config_p{n}.json", "w") as f:
-        json.dump(cfg(n), f, indent=2)
-    print("wrote config_p%d.json" % n)
+        json.dump(c, f, indent=2)
+    c["output_name"] = f"dit_p{n}_u16.axmodel"
+    c["work_dir"] = f"{base}/out/work_p{n}_u16"
+    c["quant"]["layer_configs"] = [{"op_types": U16_OPS, "data_type": "U16",
+                                    "weight_data_type": "S8", "output_data_type": "U16"}]
+    with open(f"{base}/config_p{n}_u16.json", "w") as f:
+        json.dump(c, f, indent=2)
+    print("wrote config_p%d.json / config_p%d_u16.json" % (n, n))

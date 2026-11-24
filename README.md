@@ -73,6 +73,23 @@ dit_p11: axmodel vs ONNX ~0.15, real-vs-zero ~0.99996   (x ignored)
 dit_p8 : axmodel vs ONNX ~0.64, real-vs-zero ~0.481     (x used)
 ```
 
+## Fix verified (2026-11-24)
+
+AX's `layer_configs` list (all activation ops U16) fixes p11:
+
+| config | axmodel vs ONNX | real-vs-zero-x | output std |
+|---|---|---|---|
+| default INT8 | 0.148512 | 0.999960 | 0.120 (ONNX 2.272) |
+| all-activation U16 | **0.997342** | **0.466226** | **2.283** (ONNX 2.272) |
+
+`PULSAR2_QUANT_ALL_U16=true` alone did not change our p11 (still 0.148512); the
+`layer_configs` route works on Pulsar2 8.0. Build it with:
+
+```bash
+python3 prepare.py
+pulsar2 build --config config_p11_u16.json
+```
+
 ## What we already tried (all give the same p11 output)
 
 - INT8 MinMax / MSE / Percentile, real calibration
